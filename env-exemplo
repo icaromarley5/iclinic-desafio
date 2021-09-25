@@ -1,0 +1,30 @@
+# .env
+NGINX_PORT=1337
+DB_PORT=5432
+# api.env
+DATABASE_URL=postgres://user:password@host:port/database
+REDIS_URL=redis://redis:6379/1
+PHYSICIANS_URL=https://mock-api-challenge.dev.iclinic.com.br
+PHYSICIANS_TOKEN=token
+PHYSICIANS_TIMEOUT_SECONDS=4
+PHYSICIANS_RETRIES=2
+PHYSICIANS_CACHE_TTL_HOURS=48
+CLINICS_URL=https://mock-api-challenge.dev.iclinic.com.br
+CLINICS_TOKEN=token
+CLINICS_TIMEOUT_SECONDS=5
+CLINICS_RETRIES=3
+CLINICS_CACHE_TTL_HOURS=72
+PATIENTS_URL=https://mock-api-challenge.dev.iclinic.com.br
+PATIENTS_TOKEN=token
+PATIENTS_TIMEOUT_SECONDS=3
+PATIENTS_RETRIES=2
+PATIENTS_CACHE_TTL_HOURS=12
+METRICS_URL=https://mock-api-challenge.dev.iclinic.com.br
+METRICS_TOKEN=token
+METRICS_TIMEOUT_SECONDS=6
+METRICS_RETRIES=5
+METRICS_CACHE_TTL_HOURS=0
+# db.env
+POSTGRES_USER=user
+POSTGRES_PASSWORD=password
+POSTGRES_DB=database
