@@ -2,7 +2,7 @@
 
 Projeto de desafio para a vaga de Python Backend Developer na iClinic. A descrição do desafio está no arquivo README_iclinic.md
 
-Esse projeto é hosteado no Heroku e pode ser acessado a partir da URL (TODO)
+Esse projeto é hosteado no Heroku e pode ser acessado a partir da URL https://iclinic-desafio.herokuapp.com
 
 ## Documentação
 A documentação da API está disponível em (TODO)
