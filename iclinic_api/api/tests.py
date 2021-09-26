@@ -173,6 +173,25 @@ class CreatePrescriptionsTestCase(TestCase):
             },
         )
 
+    def test_error_input(
+        self, physicians_mock, clinics_mock, patients_mock, metrics_mock
+    ):
+        request_dict = {
+            "text": "Dipirona 1x ao dia",
+        }
+        factory = APIRequestFactory()
+        request = factory.post(
+            "/prescriptions",
+            request_dict,
+            format="json",
+        )
+        response = views.create_prescription(request)
+
+        self.assertEqual(
+            response.data, {"error": {"message": "malformed request", "code": "01"}}
+        )
+        self.assertEqual(response.status_code, 400)
+
     def test_error_physicians(
         self, physicians_mock, clinics_mock, patients_mock, metrics_mock
     ):
@@ -228,6 +247,50 @@ class CreatePrescriptionsTestCase(TestCase):
         self.assertEqual(
             response.data,
             {"error": {"message": "physicians service not available", "code": "05"}},
+        )
+
+    def test_error_404_physicians(
+        self, physicians_mock, clinics_mock, patients_mock, metrics_mock
+    ):
+        response_mock = mock.MagicMock()
+        response_mock.status_code = 404
+        physicians_mock.make_request = mock.MagicMock(
+            return_value=(True, response_mock)
+        )
+
+        patients_response_dict = {
+            "id": 1,
+            "name": "Yuri Porto",
+            "email": "pintodavi-lucca@uol.com.br",
+            "phone": "+55 (011) 6667 6061",
+        }
+        response_mock = mock.MagicMock()
+        response_mock.json = mock.MagicMock(return_value=patients_response_dict)
+        response_mock.status_code = 200
+        patients_mock.make_request = mock.MagicMock(return_value=(True, response_mock))
+
+        response_mock = mock.MagicMock()
+        response_mock.status_code = 500
+        clinics_mock.make_request = mock.MagicMock(return_value=(False, response_mock))
+
+        request_dict = {
+            "clinic": {"id": 1},
+            "physician": {"id": 1},
+            "patient": {"id": patients_response_dict["id"]},
+            "text": "Dipirona 1x ao dia",
+        }
+        factory = APIRequestFactory()
+        request = factory.post(
+            "/prescriptions",
+            request_dict,
+            format="json",
+        )
+
+        response = views.create_prescription(request)
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(
+            response.data,
+            {"error": {"message": "physician not found", "code": "03"}},
         )
 
     def test_error_patients(
@@ -289,7 +352,50 @@ class CreatePrescriptionsTestCase(TestCase):
             {"error": {"message": "patients service not available", "code": "06"}},
         )
 
-    def test_success_without_clinics(
+    def test_error_404_patients(
+        self, physicians_mock, clinics_mock, patients_mock, metrics_mock
+    ):
+
+        physicians_response_dict = {
+            "id": 1,
+            "name": "Ana Júlia Cardoso",
+            "crm": "80385363",
+        }
+        response_mock = mock.MagicMock()
+        response_mock.json = mock.MagicMock(return_value=physicians_response_dict)
+        response_mock.status_code = 200
+        physicians_mock.make_request = mock.MagicMock(
+            return_value=(True, response_mock)
+        )
+
+        response_mock = mock.MagicMock()
+        response_mock.status_code = 404
+        patients_mock.make_request = mock.MagicMock(return_value=(True, response_mock))
+        response_mock = mock.MagicMock()
+        response_mock.status_code = 500
+        clinics_mock.make_request = mock.MagicMock(return_value=(False, response_mock))
+
+        request_dict = {
+            "clinic": {"id": 1},
+            "physician": {"id": physicians_response_dict["id"]},
+            "patient": {"id": 1},
+            "text": "Dipirona 1x ao dia",
+        }
+        factory = APIRequestFactory()
+        request = factory.post(
+            "/prescriptions",
+            request_dict,
+            format="json",
+        )
+
+        response = views.create_prescription(request)
+        self.assertEqual(response.status_code, 404)
+        self.assertEqual(
+            response.data,
+            {"error": {"message": "patient not found", "code": "02"}},
+        )
+
+    def test_error_metrics(
         self, physicians_mock, clinics_mock, patients_mock, metrics_mock
     ):
 
