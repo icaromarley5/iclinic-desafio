@@ -21,5 +21,10 @@ docker-compose up
 
 ## Como executar testes unitários
 ```bash
-(TODO)
+python3 manage.py test
+```
+
+### Coverage
+```bash
+coverage run --source='.' manage.py test api && coverage report
 ```
