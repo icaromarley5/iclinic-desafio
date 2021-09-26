@@ -1,6 +1,7 @@
 # .env
 NGINX_PORT=1337
 DB_PORT=5432
+CI=False
 # api.env
 SECRET_KEY=supersecretkey
 DATABASE_URL=postgres://user:password@host:port/database
