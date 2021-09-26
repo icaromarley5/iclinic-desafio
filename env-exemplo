@@ -3,6 +3,8 @@ NGINX_PORT=1337
 DB_PORT=5432
 CI=False
 # api.env
+ALLOWED_HOSTS=*
+DEBUG=True
 SECRET_KEY=supersecretkey
 DATABASE_URL=postgres://user:password@host:port/database
 REDIS_URL=redis://redis:6379/1

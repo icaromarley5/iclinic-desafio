@@ -3,7 +3,7 @@ version: '3.7'
 services:
   api:
     build:
-      context: ./iclinic_api
+      context: .
     command: bash -c "python manage.py migrate && gunicorn iclinic_api.wsgi:application --bind 0.0.0.0:80 -t 120 --reload"
     container_name: api
     volumes:

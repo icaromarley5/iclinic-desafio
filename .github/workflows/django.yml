@@ -24,11 +24,13 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r iclinic_api/requirements.txt
+        pip install -r requirements.txt
     - name: Run Tests
       run: |
         python3 iclinic_api/manage.py test
       env:
+        ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
+        DEBUG: ${{ secrets.DEBUG }}
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         CI: ${{ secrets.CI }}
         PHYSICIANS_URL: ${{ secrets.PHYSICIANS_URL }}
