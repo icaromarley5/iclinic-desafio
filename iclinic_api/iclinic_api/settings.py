@@ -25,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ["DEBUG"] == "True"
 
 ALLOWED_HOSTS = []
 
@@ -183,3 +183,6 @@ METRICS_TOKEN = os.environ["METRICS_TOKEN"]
 METRICS_TIMEOUT_SECONDS = int(os.environ["METRICS_TIMEOUT_SECONDS"])
 METRICS_RETRIES = int(os.environ["METRICS_RETRIES"])
 METRICS_CACHE_TTL_HOURS = int(os.environ["METRICS_CACHE_TTL_HOURS"])
+
+
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
