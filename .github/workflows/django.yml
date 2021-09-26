@@ -29,6 +29,8 @@ jobs:
       run: |
         python3 iclinic_api/manage.py test
       env:
+        ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
+        DEBUG: ${{ secrets.DEBUG }}
         SECRET_KEY: ${{ secrets.SECRET_KEY }}
         CI: ${{ secrets.CI }}
         PHYSICIANS_URL: ${{ secrets.PHYSICIANS_URL }}
