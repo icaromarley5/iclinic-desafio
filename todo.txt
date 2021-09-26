@@ -1,4 +1,0 @@
-- testar com https://python-challenge-scanapi.dev.iclinic.com.br/
-
-- adicionar documentação (redoc com whitenoise)
-
