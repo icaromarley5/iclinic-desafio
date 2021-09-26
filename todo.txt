@@ -1,7 +1,4 @@
-- adicionar CI (Travis, Gitlab, Circle CI, Github Actions, ...)
+- testar com https://python-challenge-scanapi.dev.iclinic.com.br/
 
 - adicionar documentação (redoc com whitenoise)
 
-- adaptar e hostear no Heroku
-
-- testar com https://python-challenge-scanapi.dev.iclinic.com.br/
