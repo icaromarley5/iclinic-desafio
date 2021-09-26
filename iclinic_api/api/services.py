@@ -15,7 +15,7 @@ class ServiceBase:
     def make_request(cls, uri_dict={}, body_dict=None):
         uri = cls.build_uri(uri_dict)
         response = cache.get(uri)
-        if cache.get(uri):
+        if response:
             return True, response
 
         headers = {"Authorization": f"Bearer {cls.token}"}

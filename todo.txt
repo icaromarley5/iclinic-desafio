@@ -1,4 +1,3 @@
-- Testes unitários com cobertura `>= 80%`;
 - adicionar CI (Travis, Gitlab, Circle CI, Github Actions, ...)
 
 - adicionar documentação (redoc com whitenoise)
