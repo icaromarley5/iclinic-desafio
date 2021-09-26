@@ -20,11 +20,21 @@ def create_prescription(request):
     success, response = services.ServicePhysicians.make_request(
         uri_dict=request_json["physician"]
     )
-    if response.status_code == 404:
-        body, status_code = errors.PhysicianNotFoundMessageError.create_response()
+
+    if not success:
+        (
+            body,
+            status_code,
+        ) = errors.PhysiciansNotAvailableMessageError.create_response()
         return Response(body, status=status_code)
-    if not success or response.status_code != 200:
-        body, status_code = errors.PhysiciansNotAvailableMessageError.create_response()
+    if response.status_code != 200:
+        if response.status_code == 404:
+            body, status_code = errors.PhysicianNotFoundMessageError.create_response()
+        else:
+            (
+                body,
+                status_code,
+            ) = errors.PhysiciansNotAvailableMessageError.create_response()
         return Response(body, status=status_code)
 
     physician_json = response.json()
@@ -39,11 +49,21 @@ def create_prescription(request):
     success, response = services.ServicePatients.make_request(
         uri_dict=request_json["patient"]
     )
-    if response.status_code == 404:
-        body, status_code = errors.PatientNotFoundMessageError.create_response()
+    if not success:
+        (
+            body,
+            status_code,
+        ) = errors.PatientsNotAvailableMessageError.create_response()
         return Response(body, status=status_code)
-    if not success or response.status_code != 200:
-        body, status_code = errors.PatientsNotAvailableMessageError.create_response()
+
+    if response.status_code != 200:
+        if response.status_code == 404:
+            body, status_code = errors.PatientNotFoundMessageError.create_response()
+        else:
+            (
+                body,
+                status_code,
+            ) = errors.PatientsNotAvailableMessageError.create_response()
         return Response(body, status=status_code)
     patient_json = response.json()
 

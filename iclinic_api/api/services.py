@@ -19,7 +19,7 @@ class ServiceBase:
             return True, response
 
         headers = {"Authorization": f"Bearer {cls.token}"}
-        response = ""
+        response = None
         for _ in range(cls.retries):
             try:
                 response = getattr(requests, cls.method)(
