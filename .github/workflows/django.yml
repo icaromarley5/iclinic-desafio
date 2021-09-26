@@ -28,3 +28,26 @@ jobs:
     - name: Run Tests
       run: |
         python3 iclinic_api/manage.py test
+      env:
+        SECRET_KEY: ${{ secrets.SECRET_KEY }}
+        CI: ${{ secrets.CI }}
+        PHYSICIANS_URL: ${{ secrets.PHYSICIANS_URL }}
+        PHYSICIANS_TOKEN: ${{ secrets.PHYSICIANS_TOKEN }}
+        PHYSICIANS_TIMEOUT_SECONDS: ${{ secrets.PHYSICIANS_TIMEOUT_SECONDS }}
+        PHYSICIANS_RETRIES: ${{ secrets.PHYSICIANS_RETRIES }}
+        PHYSICIANS_CACHE_TTL_HOURS: ${{ secrets.PHYSICIANS_CACHE_TTL_HOURS }}
+        CLINICS_URL: ${{ secrets.CLINICS_URL }}
+        CLINICS_TOKEN: ${{ secrets.CLINICS_TOKEN }}
+        CLINICS_TIMEOUT_SECONDS: ${{ secrets.CLINICS_TIMEOUT_SECONDS }}
+        CLINICS_RETRIES: ${{ secrets.CLINICS_RETRIES }}
+        CLINICS_CACHE_TTL_HOURS: ${{ secrets.CLINICS_CACHE_TTL_HOURS }}
+        PATIENTS_URL: ${{ secrets.PATIENTS_URL }}
+        PATIENTS_TOKEN: ${{ secrets.PATIENTS_TOKEN }}
+        PATIENTS_TIMEOUT_SECONDS: ${{ secrets.PATIENTS_TIMEOUT_SECONDS }}
+        PATIENTS_RETRIES: ${{ secrets.PATIENTS_RETRIES }}
+        PATIENTS_CACHE_TTL_HOURS: ${{ secrets.PATIENTS_CACHE_TTL_HOURS }}
+        METRICS_URL: ${{ secrets.METRICS_URL }}
+        METRICS_TOKEN: ${{ secrets.METRICS_TOKEN }}
+        METRICS_TIMEOUT_SECONDS: ${{ secrets.METRICS_TIMEOUT_SECONDS }}
+        METRICS_RETRIES: ${{ secrets.METRICS_RETRIES }}
+        METRICS_CACHE_TTL_HOURS: ${{ secrets.METRICS_CACHE_TTL_HOURS }}

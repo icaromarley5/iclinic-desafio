@@ -75,19 +75,27 @@ WSGI_APPLICATION = "iclinic_api.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
-DATABASE_URL = os.environ["DATABASE_URL"]
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "USER": DATABASE_URL.split("//")[1].split(":")[0],
-        "NAME": DATABASE_URL.split("//")[1].split("/")[1],
-        "PASSWORD": DATABASE_URL.split("//")[1].split("@")[0].split(":")[1],
-        "HOST": DATABASE_URL.split("//")[1].split("@")[1].split(":")[0],
-        "PORT": DATABASE_URL.split("//")[1].split("@")[1].split(":")[1].split("/")[0],
-    },
-}
-
+if os.environ["CI"] != "False":
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+        },
+    }
+else:
+    DATABASE_URL = os.environ["DATABASE_URL"]
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "USER": DATABASE_URL.split("//")[1].split(":")[0],
+            "NAME": DATABASE_URL.split("//")[1].split("/")[1],
+            "PASSWORD": DATABASE_URL.split("//")[1].split("@")[0].split(":")[1],
+            "HOST": DATABASE_URL.split("//")[1].split("@")[1].split(":")[0],
+            "PORT": DATABASE_URL.split("//")[1]
+            .split("@")[1]
+            .split(":")[1]
+            .split("/")[0],
+        },
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -133,15 +141,22 @@ STATIC_URL = "/static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # cache
-CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": os.environ["REDIS_URL"],
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
-        },
+if os.environ["CI"] != "False":
+    CACHES = {
+        "default": {
+            "BACKEND": "django.core.cache.backends.dummy.DummyCache",
+        }
     }
-}
+else:
+    CACHES = {
+        "default": {
+            "BACKEND": "django_redis.cache.RedisCache",
+            "LOCATION": os.environ["REDIS_URL"],
+            "OPTIONS": {
+                "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            },
+        }
+    }
 
 # services
 # PHYSICIANS SERVICE
