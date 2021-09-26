@@ -5,7 +5,8 @@ Projeto de desafio para a vaga de Python Backend Developer na iClinic. A descri�
 Esse projeto é hosteado no Heroku e pode ser acessado a partir da URL https://iclinic-desafio.herokuapp.com
 
 ## Documentação
-A documentação da API está disponível em (TODO)
+A documentação da API está disponível em https://iclinic-desafio.herokuapp.com
+OBS: a documentação também pode ser acessada locamente em http://localhost:1337/docs
 
 ## Como executar locamente
 1. instalar o Docker e o docker-compose

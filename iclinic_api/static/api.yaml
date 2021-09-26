@@ -1,0 +1,121 @@
+openapi: 3.0.0
+info:
+  title: iClinic Desafio
+  description: API Rest desenvolvida para o desafio da iClinic
+  version: 1.0.0
+servers:
+  - url: https://iclinic-desafio.herokuapp.com
+  - url: http://localhost:1337
+
+paths:
+  /prescriptions/:
+    post:
+      description: Add a new prescription
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object 
+              properties:
+                clinic:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                physician:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                patient:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      example: 1
+                text:
+                  type: string
+      responses:
+        201:
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                        example: 1
+                      clinic:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                      physician:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                      patient:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                      text:
+                        type: string
+                      metric:
+                        type: object
+                        properties:
+                          id:
+                            type: string
+                            example: 046c8dbc-a320-4816-9fac-a8bdcdd4ead7
+        400:
+          description: Malformed Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:   
+                  error:
+                    type: object
+                    properties:
+                      message:
+                        type: string
+                        example: malformed request
+                      code:
+                        type: string
+                        example: "01"
+        404:
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:   
+                  error:
+                    oneOf:
+                      - type: object
+                        properties:
+                          message:
+                            type: string
+                            example: patient not found
+                          code:
+                            type: string
+                            example: "02"
+                      - type: object
+                        properties:
+                          message:
+                            type: string
+                            example: physician not found
+                          code:
+                            type: string
+                            example: "03"

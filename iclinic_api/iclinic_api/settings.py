@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -56,7 +57,9 @@ ROOT_URLCONF = "iclinic_api.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [
+            os.path.join(BASE_DIR, "templates"),
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -183,5 +186,6 @@ METRICS_TIMEOUT_SECONDS = int(os.environ["METRICS_TIMEOUT_SECONDS"])
 METRICS_RETRIES = int(os.environ["METRICS_RETRIES"])
 METRICS_CACHE_TTL_HOURS = int(os.environ["METRICS_CACHE_TTL_HOURS"])
 
-
+# static
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
